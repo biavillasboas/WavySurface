@@ -1,0 +1,9 @@
+name: wavysurface
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - libnetcdf==4.6.1
+  - matplotlib==3.1.0
+  - netcdf4==1.4.2
+  - numpy==1.16.4
