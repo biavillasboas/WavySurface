@@ -2,7 +2,7 @@
 import numpy as np
 from numpy import pi, sin, cos
 
-def GetMem(a1,b1,a2,b2):
+def GetMem(a1, b1, a2, b2, ndir):
     
     """
     Compute the directional spectrum using the Maximum Entropy 
@@ -41,8 +41,8 @@ def GetMem(a1,b1,a2,b2):
     x = 1.-p1*c1.conjugate() - p2*c2.conjugate()
 
     # calculate MEM using 1 deg resolution
-
-    a = np.arange(1,361).T
+    ddir = 360/ndir
+    a = np.arange(1, 360, ddir).T
     a = a*pi/180.
     a = np.reshape(a,[1,len(a)])
 
@@ -50,10 +50,10 @@ def GetMem(a1,b1,a2,b2):
     e2 = (1. + 0j)*cos(2*a) - (0 + 1.j)*sin(2*a)
     y = abs((1.+ 0j) - np.dot(p1,e1) - np.dot(p2,e2))**2
 
-    mem = abs((x*np.ones([1,360]))/y)
+    mem = abs((x*np.ones([1,ndir]))/y)
 
     summing = np.sum(mem, axis=1)         
     sum_mem = 1./np.reshape(summing, [len(summing),1])         
-    norm_mem = np.dot(sum_mem, np.ones([1,360]))*mem
+    norm_mem = np.dot(sum_mem, np.ones([1,ndir]))*mem/ddir
 
     return norm_mem
