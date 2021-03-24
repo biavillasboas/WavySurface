@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import cm
+import copy
 
 
 def plot_dirSpec(dirSpec, freq, directions=None, vmin=0,filename=None):
@@ -21,7 +22,7 @@ def plot_dirSpec(dirSpec, freq, directions=None, vmin=0,filename=None):
     ff,dd = np.meshgrid(freq, azimuths)
     
     fig, ax = plt.subplots(figsize=(10,10),subplot_kw=dict(projection='polar'))
-    cmap = cm.jet
+    cmap = copy.copy(cm.get_cmap("jet"))
     cmap.set_under(color='white')
     cs = ax.contourf(dd, ff, dirSpec, 30, vmin=vmin, cmap=cmap)
     ax.set_rmax(.28)
